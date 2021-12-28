@@ -10,7 +10,7 @@ class TargetEncode(BaseEstimator, TransformerMixin):
         self.k = k
         self.f = f
         self.noise_level = noise_level
-        self.encodings = dict()
+        self.encodings = {}
         self.prior = None
         self.random_state = random_state
         
@@ -39,7 +39,7 @@ class TargetEncode(BaseEstimator, TransformerMixin):
             Xt[variable].replace(self.encodings[variable], inplace=True)
             unknown_value = {value:self.prior for value in X[variable].unique() 
                              if value not in self.encodings[variable].keys()}
-            if len(unknown_value) > 0:
+            if unknown_value:
                 Xt[variable].replace(unknown_value, inplace=True)
             Xt[variable] = Xt[variable].astype(float)
             if self.noise_level > 0:
